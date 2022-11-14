@@ -95,14 +95,14 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   avatarWrapper: {
-    borderWidth: 2,
+    borderWidth: 0,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
     borderColor: 'red',
-    borderRadius: 100,
-    height: 64,
-    width: 64,
+    borderRadius: 16,
+    height: 140,
+    width: 120,
   },
   text: {
     marginTop: 3,
