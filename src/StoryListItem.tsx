@@ -49,9 +49,10 @@ export const StoryListItem = ({
 
   const [current, setCurrent] = useState(0);
 
-  const progress = useRef(new Animated.Value(0)).current;
+  const progress = useRef<Animated.Value>(new Animated.Value(0)).current;
 
   const prevCurrentPage = usePrevious(currentPage);
+  const [saved, setSaved] = useState(0);
 
   useEffect(() => {
     let isPrevious = !!prevCurrentPage && prevCurrentPage > currentPage;
@@ -107,7 +108,7 @@ export const StoryListItem = ({
   function startAnimation() {
     Animated.timing(progress, {
       toValue: 1,
-      duration: duration,
+      duration: duration*(1-saved),
       useNativeDriver: false,
     }).start(({ finished }) => {
       if (finished) {
@@ -243,7 +244,7 @@ export const StoryListItem = ({
         </View>
         <View style={styles.pressContainer}>
           <TouchableWithoutFeedback
-            onPressIn={() => progress.stopAnimation()}
+            onPressIn={() => progress.stopAnimation(num => setSaved(num))}
             onLongPress={() => setPressed(true)}
             onPressOut={() => {
               setPressed(false);
@@ -258,7 +259,7 @@ export const StoryListItem = ({
             <View style={{ flex: 1 }} />
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback
-            onPressIn={() => progress.stopAnimation()}
+            onPressIn={() => progress.stopAnimation(num => setSaved(num))}
             onLongPress={() => setPressed(true)}
             onPressOut={() => {
               setPressed(false);
